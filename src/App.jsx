@@ -12,6 +12,8 @@ import { NavLink ,useLocation, matchPath} from 'react-router-dom'
 import { Route, Routes } from 'react-router'
 
 function App() {
+  console.log('App rendered');
+  
 
   const routes = [
     {
