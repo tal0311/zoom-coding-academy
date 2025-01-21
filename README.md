@@ -32,3 +32,6 @@ This app has deployment and testing AKA preview modes:
 - For writing a new feature **wip-[feature_name]-[author1_author_2]**
 - For bug fixing **bug-[bug_desc]-[Trello_card_id]-[author1_author_2]**
 
+## To view the Project Progress:
+Here You can view the project tasks and progress 
+- [Project Progress](https://github.com/users/tal0311/projects/1/views/2)

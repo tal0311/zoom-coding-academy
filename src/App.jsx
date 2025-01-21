@@ -8,6 +8,11 @@ import NotFoundPage from './pages/NotFoundPage'
 import Whiteboard from './pages/Whiteboard'
 import { NavLink ,useLocation, matchPath} from 'react-router-dom'
 
+import GIcon from './cmps/GIcon'
+
+
+
+
 
 import { Route, Routes } from 'react-router'
 
@@ -53,6 +58,10 @@ function App() {
             </ul>
           </nav>
           <div className="actions">
+      
+          
+            <GIcon iconName='Home'/>
+         
             <span>help</span> | <span>calender</span> | <span>user-preview</span>
           </div>
         </div>
