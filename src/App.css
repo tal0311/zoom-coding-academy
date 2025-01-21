@@ -1,0 +1,12 @@
+.app-container{
+  @apply grid grid-rows-[70px_calc(100vh-70px)] h-screen ;
+}
+
+.main-layout {
+  @apply grid grid-cols-[40px_1fr_40px];
+
+  >* {
+    grid-column: 2;
+  }
+}
+

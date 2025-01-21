@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #2D8CFF; /* Zoom Blue */
+  --color-secondary: #F5F7FA; /* Light Gray Background */
+  --color-accent: #E91E63; /* Pink Accent */
+  --color-orange: #FF8800; /* Orange (e.g., for warnings) */
+  --color-background: #FFFFFF; /* White Background */
+  --color-background-2: #cdcdcd; /* White Background */
+  --color-text-primary: #333333; /* Dark Text */
+  --color-text-secondary: #5F6368; /* Lighter Text */
+}
+
+[data-theme="dark"] {
+  --color-primary: #145CCB; /* Darker Blue for Dark Mode */
+  --color-secondary: #1E1E1E; /* Dark Gray Background */
+  --color-accent: #FF4081; /* Pink Accent for Dark Mode */
+  --color-orange: #FF7700; /* Darker Orange for Dark Mode */
+  --color-background: #121212; /* Very Dark Background */
+  --color-text-primary: #E1E1E1; /* Light Text */
+  --color-text-secondary: #A0A0A0; /* Lighter Text */
+}
+
