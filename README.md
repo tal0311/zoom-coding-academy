@@ -21,8 +21,7 @@
 
 
 ### Deploy and Preview
-
-This app has deployment and testing AKA preview modes:
+This app has deployment to PRODUCTION and testing AKA PREVIEW modes:
 - To update de deploy merge you'r branch to main
 - To update preview merge you'r branch to testing
 - [Deployment](https://https://vercel.com/tal0311s-projects/zoom-coding-academy/9n5c1KQCsiVS11MAHuLkmdUnqRVc)
@@ -31,4 +30,9 @@ This app has deployment and testing AKA preview modes:
 ### Branch naming convention
 - For writing a new feature **wip-[feature_name]-[author1_author_2]**
 - For bug fixing **bug-[bug_desc]-[Trello_card_id]-[author1_author_2]**
+- **Important** Main brunch is protected and you can only merge in to it  by using pull request from another branch
+
+## WebRtc 
+That is the technology  that allows us to stream video from client to client.
+you can see code example with vanilla JS is this repo https://github.com/tal0311/peer-js-ex
 
