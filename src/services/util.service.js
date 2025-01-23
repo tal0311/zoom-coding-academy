@@ -51,3 +51,13 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+
+export const showModal = (content) => {
+    const event = new CustomEvent("showModal", { detail: { content } });
+    window.dispatchEvent(event);
+};
+
+export const hideModal = () => {
+    window.dispatchEvent(new Event("hideModal"));
+};
