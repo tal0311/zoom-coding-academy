@@ -1,0 +1,80 @@
+[
+    {
+        "id": "userId1",
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "profile_picture": "https://example.com/profiles/userId1.jpg",
+        "created_at": "2025-01-01T10:00:00Z",
+        "last_active": "2025-01-23T09:00:00Z",
+        "status": "online",
+        "role": "participant",
+        "preferences": {
+            "notifications_enabled": true,
+            "theme": "dark"
+        },
+        "recent_sessions": [
+            {
+                "device": "Chrome on Windows",
+                "ip": "192.168.1.1",
+                "timestamp": "2025-01-22T10:00:00Z"
+            },
+            {
+                "device": "Safari on iPhone",
+                "ip": "192.168.1.2",
+                "timestamp": "2025-01-23T09:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "userId2",
+        "name": "Jane Smith",
+        "email": "janesmith@example.com",
+        "profile_picture": "https://example.com/profiles/userId2.jpg",
+        "created_at": "2025-01-05T12:30:00Z",
+        "last_active": "2025-01-23T11:15:00Z",
+        "status": "away",
+        "role": "host",
+        "preferences": {
+            "notifications_enabled": true,
+            "theme": "light"
+        },
+        "recent_sessions": [
+            {
+                "device": "Edge on Windows",
+                "ip": "192.168.1.10",
+                "timestamp": "2025-01-20T14:00:00Z"
+            },
+            {
+                "device": "Firefox on Mac",
+                "ip": "192.168.1.11",
+                "timestamp": "2025-01-23T11:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "userId3",
+        "name": "Alice Johnson",
+        "email": "alicej@example.com",
+        "profile_picture": "https://example.com/profiles/userId3.jpg",
+        "created_at": "2025-01-10T08:45:00Z",
+        "last_active": "2025-01-23T10:30:00Z",
+        "status": "offline",
+        "role": "admin",
+        "preferences": {
+            "notifications_enabled": false,
+            "theme": "dark"
+        },
+        "recent_sessions": [
+            {
+                "device": "Safari on Mac",
+                "ip": "192.168.1.20",
+                "timestamp": "2025-01-22T09:00:00Z"
+            },
+            {
+                "device": "Chrome on Android",
+                "ip": "192.168.1.21",
+                "timestamp": "2025-01-23T10:00:00Z"
+            }
+        ]
+    }
+]
