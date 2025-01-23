@@ -39,3 +39,17 @@ you can see code example with vanilla JS is this repo https://github.com/tal0311
 ## To view the Project Progress:
 Here You can view the project tasks and progress 
 - [Project Progress](https://github.com/users/tal0311/projects/1/views/2)
+
+## Modals
+Modals will be Opened by a global modal from the util service
+```
+export const showModal = (content) => {
+    const event = new CustomEvent("showModal", { detail: { content } });
+    window.dispatchEvent(event);
+};
+
+export const hideModal = () => {
+    window.dispatchEvent(new Event("hideModal"));
+};
+
+```
