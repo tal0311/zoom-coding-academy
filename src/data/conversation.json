@@ -1,0 +1,67 @@
+[
+    {
+        "id": "conversation1",
+        "participants": {
+            "userId1": {
+                "name": "משה כהן",
+                "profile_picture": "https://example.com/profiles/userId1.jpg"
+            },
+            "userId2": {
+                "name": "רונה לוי",
+                "profile_picture": "https://example.com/profiles/userId2.jpg"
+            }
+        },
+        "messages": [
+            {
+                "sender_id": "userId1",
+                "content": "שלום רונה, מה שלומך?",
+                "timestamp": "2025-01-23T10:00:00Z"
+            },
+            {
+                "sender_id": "userId2",
+                "content": "היי משה, הכל בסדר. מה איתך?",
+                "timestamp": "2025-01-23T10:02:00Z"
+            },
+            {
+                "sender_id": "userId1",
+                "content": "גם בסדר, תודה. מה חדש?",
+                "timestamp": "2025-01-23T10:05:00Z"
+            }
+        ]
+    },
+    {
+        "id": "conversation2",
+        "participants": {
+            "userId3": {
+                "name": "אורי לוי",
+                "profile_picture": "https://example.com/profiles/userId3.jpg"
+            },
+            "userId4": {
+                "name": "דנה כהן",
+                "profile_picture": "https://example.com/profiles/userId4.jpg"
+            }
+        },
+        "messages": [
+            {
+                "sender_id": "userId3",
+                "content": "היי דנה, יש לך זמן לשיחה קצרה?",
+                "timestamp": "2025-01-23T11:00:00Z"
+            },
+            {
+                "sender_id": "userId4",
+                "content": "היי אורי, בטח. על מה מדובר?",
+                "timestamp": "2025-01-23T11:02:00Z"
+            },
+            {
+                "sender_id": "userId3",
+                "content": "רציתי לדבר על הפרויקט החדש. יש לך זמן מחר?",
+                "timestamp": "2025-01-23T11:05:00Z"
+            },
+            {
+                "sender_id": "userId4",
+                "content": "בטח, אני יכולה לדבר אחרי הצהריים.",
+                "timestamp": "2025-01-23T11:08:00Z"
+            }
+        ]
+    }
+]
