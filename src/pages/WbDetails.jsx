@@ -38,25 +38,28 @@ const WbDetails = () => {
     return (
         <div>
             <h1>WbDetailssss</h1>
-            <canvas
-                className='lower-canvas'
-                ref={lowerCanvasRef}
-                width={800}
-                height={600}
-             
-            />
-            <canvas
-                className='upper-canvas'
+            <section className='canvas-container'>
 
-                ref={upperCanvasRef}
-                width={800}
-                height={600}
-                // style={{ border: '1px solid black' }}
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={stopDrawing}
-                onMouseLeave={stopDrawing}
-            />
+                <canvas
+                    className='lower-canvas'
+                    ref={lowerCanvasRef}
+                    width={800}
+                    height={600}
+
+                />
+                <canvas
+                    className='upper-canvas'
+
+                    ref={upperCanvasRef}
+                    width={800}
+                    height={600}
+                    // style={{ border: '1px solid black' }}
+                    onMouseDown={startDrawing}
+                    onMouseMove={draw}
+                    onMouseUp={stopDrawing}
+                    onMouseLeave={stopDrawing}
+                />
+            </section>
         </div>
     );
 };

@@ -29,6 +29,10 @@ async function query(filterBy = {txt:'' }) {
     return wbs
 }
 
+// async function createWb() {
+
+// }
+
 function getById(wbId) {
     return storageService.get(STORAGE_KEY, wbId)
 }
@@ -48,15 +52,15 @@ async function save(wb) {
         }
         savedWb = await storageService.put(STORAGE_KEY, wbToSave)
     } else {
-        const wbToSave = {
-            vendor: wb.vendor,
-            price: wb.price,
-            speed: wb.speed,
-            // Later, owner is set by the backend
-            owner: userService.getLoggedInUser(),
-            msgs: []
-        }
-        savedWb = await storageService.post(STORAGE_KEY, wbToSave)
+        // const wbToSave = {
+        //     vendor: wb.vendor,
+        //     price: wb.price,
+        //     speed: wb.speed,
+        //     // Later, owner is set by the backend
+        //     owner: userService.getLoggedInUser() || 'Moishe',
+        //     msgs: []
+        // }
+        savedWb = await storageService.post(STORAGE_KEY, wb)
     }
     return savedWb
 }
