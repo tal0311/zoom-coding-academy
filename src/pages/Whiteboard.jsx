@@ -10,6 +10,8 @@ const Whiteboard = () => {
     }, []);
 
     function initCanvas() {
+        console.log(canvasRef);
+        
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         setContext(ctx);

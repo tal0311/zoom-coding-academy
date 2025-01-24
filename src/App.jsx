@@ -75,7 +75,8 @@ function App() {
             <Route path="meeting/:id" element={<RouteGuard><MeetingDetails /></RouteGuard>} />
           </Route>
           <Route path="/wb/dashboard/:folder?" element={<RouteGuard><WbIndex /></RouteGuard>}></Route>
-          <Route path="/wb/:id" element={<RouteGuard><WbDetails /></RouteGuard>} />
+          <Route path="/wb/:wbId" element={<RouteGuard><WbDetails /></RouteGuard>} />
+          <Route path="/wb/:wbId" element={<RouteGuard><Whiteboard /></RouteGuard>} />
           <Route path="/about" element={<RouteGuard><About /></RouteGuard>} />
         </Routes>
       </main>
@@ -87,7 +88,7 @@ function App() {
 function RouteGuard({ children }) {
   const location = useLocation();
   console.log(location);
-  const allowedRoutes = ['/', '/meeting/:id', '/about', '/wb/dashboard/:folder', 'wb/:id'];
+  const allowedRoutes = ['/', '/meeting/:id', '/about', '/wb/dashboard/:folder', 'wb/:wbId'];
   const isAllowed = allowedRoutes.some((route) => matchPath(route, location.pathname));
   // If the current route is not allowed, navigate to the default route
   if (!isAllowed) {

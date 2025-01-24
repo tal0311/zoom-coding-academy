@@ -45,12 +45,12 @@ async function remove(wbId) {
 async function save(wb) {
     var savedWb
     if (wb._id) {
-        const wbToSave = {
-            _id: wb._id,
-            price: wb.price,
-            speed: wb.speed,
-        }
-        savedWb = await storageService.put(STORAGE_KEY, wbToSave)
+        // const wbToSave = {
+        //     _id: wb._id,
+        //     price: wb.price,
+        //     speed: wb.speed,
+        // }
+        savedWb = await storageService.put(STORAGE_KEY, wb)
     } else {
         // const wbToSave = {
         //     vendor: wb.vendor,
