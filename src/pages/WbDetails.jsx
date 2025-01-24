@@ -29,11 +29,15 @@ const WbDetails = () => {
         const returndWb = await wbService.getById(wbId)
         wb.current = returndWb
         console.log("🚀 ~ loadWb ~ wb:", wb)
+        renderLowerCanvas()
 
     }
 
     function renderLowerCanvas() {
+        lowerCtxRef.current.clearRect(0, 0, lowerCanvasRef.current.width, lowerCanvasRef.current.height)
+
         wb.current.elements.forEach(el => {
+            console.log("🚀 ~ renderLowerCanvas ~ el:", el)
             switch (el.type) {
                 case 'pen':
                     renderPen(el)
@@ -60,19 +64,21 @@ const WbDetails = () => {
 
 
     function renderPen(el) {
+        console.log("🚀 ~ renderPen ~ el:", el)
         const startingPos = el.points[0]
-        upperCtxRef.current.beginPath();
-        upperCtxRef.current.moveTo(startingPos.x, startingPos.y);
+        lowerCtxRef.current.beginPath();
+        lowerCtxRef.current.moveTo(startingPos.x, startingPos.y);
 
         el.points.forEach(p => {
-            upperCtxRef.current.beginPath();
-            upperCtxRef.current.moveTo(p.x, p.y);
+
+            lowerCtxRef.current.lineTo(p.x, p.y)
+            lowerCtxRef.current.stroke()
         })
-        upperCtxRef.current.closePath();
+        lowerCtxRef.current.closePath();
     }
 
-    function onClearCanvas(ctx) {
-        ctx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    function clearUpperCanvas() {
+        upperCtxRef.current.clearRect(0, 0, upperCanvasRef.current.width, upperCanvasRef.current.height)
     }
 
     function resizeCanvas() {
@@ -158,6 +164,8 @@ const WbDetails = () => {
         wb.current.elements.push(elementToEdit.current)
         if (selectedTool !== 'pen') selectTool('select')
         console.log(wb.current)
+        clearUpperCanvas()
+        renderLowerCanvas()
         wbService.save(wb.current)
     }
     // if (!wb) return <h1>Loadingggg</h1>
