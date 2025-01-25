@@ -28,26 +28,26 @@ export function AppHeader() {
     ]
 
     return (
-        <header className="app-header bg-text bg-background-2 main-layout">
+        <header className="app-header bg-text main-layout">
             <div className="grid items-center grid-flow-col h-full">
 
-                <GIcon iconName="Logo" />
+                <GIcon className="logo" iconName="Logo" />
                 <nav className=''>
-                    <ul className='grid grid-flow-col'>
+                    <ul className='nav-list grid grid-flow-col'>
                         {routes.map((route, index) => (
                             <li key={index}>
-                                <GIcon iconName={route.icon} />
                                 <NavLink
                                     to={route.path}
                                     className={({ isActive }) => (isActive ? 'active-link' : '')}
                                 >
-                                    {route.name}
+                                    <GIcon iconName={route.icon} />
+                                    <span className="txt">{route.name}</span>
                                 </NavLink>
                             </li>
                         ))}
-                        <li>
+                        <li className="cursor-pointer">
                             <GIcon iconName="More" />
-                            More
+                            <span className="txt">More</span>
                         </li>
                     </ul>
                 </nav>
