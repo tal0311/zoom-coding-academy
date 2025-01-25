@@ -60,16 +60,7 @@ function getDefaultFilter() {
   }
 }
 
-function getCanvasCoordinates (ev, canvasRef)  {
-    // const rect = lowerCanvasRef.current.getBoundingClientRect();
-    // const x = (ev.clientX - rect.left - offset.x) / zoom;
-    // const y = (ev.clientY - rect.top - offset.y) / zoom;
-    const rect = canvasRef.current.getBoundingClientRect();
 
-    const x = ev.clientX - rect.left;
-    const y = ev.clientY - rect.top;
-    return { x, y };
-};
 
 const service = local
 // const service = VITE_LOCAL === 'true' ? local : remote

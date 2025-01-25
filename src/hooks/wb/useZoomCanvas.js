@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 
 export function useZoomCanvas(getCanvasCoordinates) {
+
   const [zoom, setZoom] = useState(1)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
+  
   function handleScroll(ev) {
     const zoomFactor = ev.deltaY < 0 ? 1.15 : 1 / 1.15
     const maxZoom = 10
