@@ -1,48 +1,50 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { wbService } from '../services/wb';
 import { useParams } from 'react-router';
 import WbToolbar from '../cmps/wb/WbToolbar';
 import WbLeftFooter from '../cmps/wb/WbLeftFooter';
 import WbRightFooter from '../cmps/wb/WbRightFooter';
 import '/src/assets/styles/wb.css'
-import { useResizeCanvas } from '../hooks/wb/useResizeCanvas';
+import { useResizeCanvas } from '../hooks/wb/useResizeCanvas.js';
+import { useZoomCanvas } from '../hooks/wb/useZoomCanvas.js';
 
 
 const WbDetails = () => {
+
+    // Canvas refs
     const canvasContainerRef = useRef(null);
     const lowerCanvasRef = useRef(null);
     const upperCanvasRef = useRef(null);
     const lowerCtxRef = useRef(null);
     const upperCtxRef = useRef(null);
 
+    // Editing states
     const [isMouseDown, setIsMouseDown] = useState(false);
-    const isDrawing = useRef(false);
-    // const zoom = useRef(1);
-    const [zoom, setZoom] = useState(1);
-    const [offset, setOffset] = useState({ x: 0, y: 0 })
-    // const [elementToEdit, setElementToEdit] = useState(null)
     const elementToEdit = useRef(null)
     const [selectedTool, setSelectedTool] = useState(null)
 
+    // Hook to handle resizing canvas when viewport changes
     useResizeCanvas(
         canvasContainerRef,
         lowerCanvasRef,
         upperCanvasRef)
 
+        const getCanvasCoordinates = (ev) => {
+            // const rect = lowerCanvasRef.current.getBoundingClientRect();
+            // const x = (ev.clientX - rect.left - offset.x) / zoom;
+            // const y = (ev.clientY - rect.top - offset.y) / zoom;
+            const rect = upperCanvasRef.current.getBoundingClientRect();
+    
+            const x = ev.clientX - rect.left;
+            const y = ev.clientY - rect.top;
+            return { x, y };
+        };
+    const { zoom, offset } = useZoomCanvas(getCanvasCoordinates);
+
     const wb = useRef(null)
     const { wbId } = useParams()
     console.log('canvas renders');
 
-    const getCanvasCoordinates = (ev) => {
-        // const rect = lowerCanvasRef.current.getBoundingClientRect();
-        // const x = (ev.clientX - rect.left - offset.x) / zoom;
-        // const y = (ev.clientY - rect.top - offset.y) / zoom;
-        const rect = upperCanvasRef.current.getBoundingClientRect();
-
-        const x = ev.clientX - rect.left;
-        const y = ev.clientY - rect.top;
-        return { x, y };
-    };
 
     useEffect(() => {
         if (wb.current) {
@@ -51,31 +53,11 @@ const WbDetails = () => {
                 renderLowerCanvas();
             });
         }
-        window.addEventListener('wheel', handleScroll);
-
-        return () => {
-            window.removeEventListener('wheel', handleScroll);
-        }
+       
     }, [zoom, offset])
 
     useEffect(() => {
-        function drawGrid(ctx) {
-            ctx.save();
-            ctx.strokeStyle = "#ddd";
-            for (let x = -5000; x < 5000; x += 50) {
-                ctx.beginPath();
-                ctx.moveTo(x, -5000);
-                ctx.lineTo(x, 5000);
-                ctx.stroke();
-            }
-            for (let y = -5000; y < 5000; y += 50) {
-                ctx.beginPath();
-                ctx.moveTo(-5000, y);
-                ctx.lineTo(5000, y);
-                ctx.stroke();
-            }
-            ctx.restore();
-        }
+
 
         initCanvas();
         resizeCanvas()
@@ -99,9 +81,9 @@ const WbDetails = () => {
         const scaleRatio = newZoom / zoom;
         // const zoomFactorAdjustment = Math.log(zoom + 1) * 2
         // const zoomFactorAdjustment = Math.pow(zoom, 1.8); // Exponentially adjusts based on zoom
-        setOffset(prevOffset=>({
-            x: prevOffset.x - (mousePos.x * scaleRatio - mousePos.x)*zoom*2,
-            y: prevOffset.y - (mousePos.y * scaleRatio - mousePos.y)*zoom*2,
+        setOffset(prevOffset => ({
+            x: prevOffset.x - (mousePos.x * scaleRatio - mousePos.x) * zoom * 2,
+            y: prevOffset.y - (mousePos.y * scaleRatio - mousePos.y) * zoom * 2,
         }));
         // zoomCanvas(zoomFactor);
     }
