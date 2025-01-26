@@ -8,8 +8,9 @@
   --color-accent: #E91E63; /* Pink Accent */
   --color-orange: #FF8800; /* Orange (e.g., for warnings) */
   --color-background: #FFFFFF; /* White Background */
-  --color-background-2: #cdcdcd; /* White Background */
-  --color-text-primary: #333333; /* Dark Text */
+  --color-background-2: #e2e6e9;
+  --color-background-3: #cbd0d4;
+  --color-text-primary: #131619; /* Dark Text */
   --color-text-secondary: #5F6368; /* Lighter Text */
 }
 
