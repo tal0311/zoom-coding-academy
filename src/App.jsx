@@ -1,7 +1,7 @@
 import './App.css'
 
 import MeetingLobby from './pages/MeetingLobby'
-import { Notes } from './pages/Notes'
+import { NoteIndex } from './pages/NoteIndex'
 import About from './pages/About'
 import MeetingDetails from './pages/MeetingDetails'
 import NotFoundPage from './pages/NotFoundPage'
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<RouteGuard><MeetingLobby /></RouteGuard>}>
             <Route path="meeting/:id" element={<RouteGuard><MeetingDetails /></RouteGuard>} />
           </Route>
-          <Route path="/notes" element={<RouteGuard><Notes /></RouteGuard>} >
+          <Route path="/notes" element={<RouteGuard><NoteIndex /></RouteGuard>} >
           </Route>
           <Route path="/whiteboard" element={<RouteGuard><Whiteboard /></RouteGuard>}></Route>
           <Route path="/about" element={<RouteGuard><About /></RouteGuard>} />
