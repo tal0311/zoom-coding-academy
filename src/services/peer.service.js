@@ -32,7 +32,14 @@ async function getUserMedia(constraints = { video: true, audio: true }) {
   }
 }
 
-async function joinCall(peer, remoteId, onLocalStream, onRemoteStream) {
+async function joinCall(
+  peer,
+  remoteId,
+  onLocalStream,
+  onRemoteStream,
+  setConnection,
+  onEndMeeting
+) {
   try {
     const stream = await getUserMedia()
     if (onLocalStream) onLocalStream(stream)
@@ -46,13 +53,14 @@ async function joinCall(peer, remoteId, onLocalStream, onRemoteStream) {
 
     call.on('close', () => {
       console.log('Call closed')
-      alert('Call ended')
+      onEndMeeting && onEndMeeting()
     })
 
     call.on('error', error => {
       console.error('Call error:', error)
     })
 
+    setConnection && setConnection(call)
     return call
   } catch (error) {
     console.error('Failed to make a call:', error)
@@ -60,7 +68,7 @@ async function joinCall(peer, remoteId, onLocalStream, onRemoteStream) {
   }
 }
 
-async function startCall(peer, onLocalStream, onRemoteStream) {
+async function startCall(peer, onLocalStream, onRemoteStream, setConnection) {
   peer.on('call', async call => {
     try {
       const stream = await getUserMedia()
@@ -75,13 +83,13 @@ async function startCall(peer, onLocalStream, onRemoteStream) {
 
       call.on('close', () => {
         console.log('Call closed')
-        alert('Call ended')
       })
 
       call.on('error', error => {
         console.error('Call error:', error)
       })
 
+      setConnection && setConnection(call)
       return call
     } catch (error) {
       console.error('Failed to answer call:', error)

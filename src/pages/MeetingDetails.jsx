@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { peerService } from '../services/peer.service'
 
 function MeetingDetails() {
   const [peer, setPeer] = useState(null)
-
-  const { isHost } = JSON.parse(localStorage.getItem('user')) || false
+  const [connection, setConnection] = useState(null)
 
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
 
+  const navigate = useNavigate()
+
   const { id } = useParams()
+  const { isHost } = JSON.parse(localStorage.getItem('user')) || false
 
   useEffect(() => {
     if (peer) {
@@ -25,7 +27,7 @@ function MeetingDetails() {
 
   useEffect(() => {
     return () => {
-      console.log('Hi')
+      onEndMeeting()
     }
   }, [])
 
@@ -46,7 +48,8 @@ function MeetingDetails() {
       },
       stream => {
         remoteVideoRef.current.srcObject = stream
-      }
+      },
+      setConnection
     )
   }
 
@@ -59,7 +62,9 @@ function MeetingDetails() {
       },
       stream => {
         remoteVideoRef.current.srcObject = stream
-      }
+      },
+      setConnection,
+      onEndMeeting
     )
   }
 
@@ -69,6 +74,24 @@ function MeetingDetails() {
       audio: true,
     })
     localVideoRef.current.srcObject = localStream
+  }
+
+  function endLocalStream() {
+    if (localVideoRef.current?.srcObject) {
+      const stream = localVideoRef.current.srcObject
+      const tracks = stream.getTracks() // Get all tracks (audio, video)
+
+      tracks.forEach(track => track.stop()) // Stop each track to release the camera
+    }
+  }
+
+  async function onEndMeeting() {
+    endLocalStream()
+    peer?.disconnect()
+    connection?.close()
+    // Need more testing
+    // localVideoRef.current.srcObject = null
+    navigate('/')
   }
 
   if (!peer) return <div>Loading...</div>
@@ -95,6 +118,20 @@ function MeetingDetails() {
         </div>
       </div>
       {/* Add more participants if needed */}
+      <button
+        onClick={onEndMeeting}
+        className={`px-4 py-2 rounded-lg text-white font-medium 
+                  ${
+                    isHost
+                      ? 'bg-red-600 hover:bg-red-700'
+                      : 'bg-blue-600 hover:bg-blue-700'
+                  }
+                  focus:outline-none focus:ring-2 focus:ring-offset-2 
+                  ${isHost ? 'focus:ring-red-500' : 'focus:ring-blue-500'}
+                  transition duration-300`}
+      >
+        {isHost ? 'End meeting' : 'Leave meeting'}
+      </button>
     </section>
   )
 }
