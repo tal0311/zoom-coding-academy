@@ -45,8 +45,8 @@ const allNotFoundAction = {
 };
 
 export function NotFoundActions({ label, operator }) {
-    console.log(label, operator);
     const actionData = allNotFoundAction[operator]?.[label];
+
     if (!actionData) return null;
     return (
         <article className="not-found-actions justify-center justify-items-center gap-2.5 p-10">

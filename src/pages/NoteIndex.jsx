@@ -1,93 +1,12 @@
 import { useEffect, useState } from "react"
 
+import { noteService } from "../services/note/note.service.local"
+
 import GIcon from "../cmps/GIcon"
 import { NotesList } from "../cmps/NotesList"
 import { ActionSidebar } from "../cmps/ActionSidebar"
 import { NotFoundActions } from "../cmps/NotFoundActions"
 
-
-const notes = [
-    {
-        id: 123,
-        name: 'Carmel Amarilio - Coding Academy 26/01/2025, 16:33:26',
-        isStar: false,
-        isTrash: false,
-        owner: {
-            id: 123,
-            name: 'Carmel Amarilio - Coding Academy'
-        },
-        project: {
-            id: 123,
-            name: 'Zoom-CA'
-        },
-        modified: [
-            {
-                at: '5.3.24',
-                by: 'Carmel Amarilio - Coding Academy'
-            }
-        ]
-    },
-    {
-        id: 124,
-        name: 'Carmel Amarilio - Coding Academy 26/01/2025, 16:33:26',
-        isStar: true,
-        isTrash: false,
-        owner: {
-            id: 123,
-            name: 'Carmel Amarilio - Coding Academy'
-        },
-        project: {
-            id: 123,
-            name: 'Zoom-CA'
-        },
-        modified: [
-            {
-                at: '5.3.24',
-                by: 'Carmel Amarilio - Coding Academy'
-            }
-        ]
-    },
-    {
-        id: 125,
-        name: 'Carmel Amarilio - Coding Academy 26/01/2025, 16:33:26',
-        isStar: true,
-        isTrash: false,
-        owner: {
-            id: 123,
-            name: 'Carmel Amarilio - Coding Academy'
-        },
-        project: {
-            id: 123,
-            name: 'Zoom-CA'
-        },
-        modified: [
-            {
-                at: '5.3.24',
-                by: 'Carmel Amarilio - Coding Academy'
-            }
-        ]
-    },
-    {
-        id: 126,
-        name: 'Carmel Amarilio - Coding Academy 26/01/2025, 16:33:26',
-        isStar: false,
-        isTrash: false,
-        owner: {
-            id: 123,
-            name: 'Carmel Amarilio - Coding Academy'
-        },
-        project: {
-            id: 123,
-            name: 'Zoom-CA'
-        },
-        modified: [
-            {
-                at: '5.3.24',
-                by: 'Carmel Amarilio - Coding Academy'
-            }
-        ]
-    },
-]
 
 const logInUser = {
     id: 123,
@@ -95,32 +14,51 @@ const logInUser = {
 }
 
 export function NoteIndex() {
-    const [notesToDisplay, setNotesToDisplay] = useState(notes)
+    const [allNotes, setAllNotes] = useState(null)
+    const [notesToDisplay, setNotesToDisplay] = useState(null)
     const [filter, setFilter] = useState({ label: 'All notes', text: '' })
 
-    useEffect(() => {
-        const { label, text } = filter
-        let filteredNots = notes
+    useEffect(() => { loadNotes() }, [filter.text])
+    useEffect(() => { filterByLabel() }, [filter.label])
+
+
+    async function loadNotes() {
+        try {
+            const notes = await noteService.query(filter)
+            setAllNotes(notes)
+            setNotesToDisplay(notes)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function filterByLabel() {
+        if (!allNotes) return
+        const { label } = filter
+        let notes = allNotes
         switch (label) {
+            case 'All notes':
+                notes = notes.filter(({ isTrash }) => !isTrash)
+                break;
             case 'Recent':
-                filteredNots = notes.filter(({ modified }) => new Date() - new Date(modified[0].at) <= 7 * 24 * 60 * 60 * 1000)
+                notes = notes.filter(({ modified }) => new Date() - new Date(modified[0].at) <= 7 * 24 * 60 * 60 * 1000)
                 break;
             case 'My notes':
-                filteredNots = notes.filter(({ owner }) => owner.id === logInUser._id)
+                notes = notes.filter(({ owner }) => owner.id === logInUser.id)
                 break;
             case 'Shared with me':
-                filteredNots = notes.filter(({ owner }) => owner.id != logInUser._id)
+                notes = notes.filter(({ owner }) => owner.id != logInUser.id)
                 break;
             case 'Starred':
-                filteredNots = notes.filter(({ isStar }) => isStar)
+                notes = notes.filter(({ isStar }) => isStar)
                 break;
             case 'Trash':
-                filteredNots = notes.filter(({ isTrash }) => isTrash)
+                notes = notes.filter(({ isTrash }) => isTrash)
                 break;
         }
-        console.log(filteredNots);
-        setNotesToDisplay(filteredNots)
-    }, [filter])
+
+        setNotesToDisplay(notes)
+    }
 
     function onSetFilter(label) {
         setFilter(prev => ({ ...prev, label }))
@@ -131,6 +69,28 @@ export function NoteIndex() {
         setFilter(prev => ({ ...prev, [name]: value }))
     }
 
+    function onStar(note) {
+        note.isStar = !note.isStar
+        saveNote(note)
+    }
+
+    function onTrash(note) {
+        note.isTrash = !note.isTrash
+        saveNote(note)
+    }
+
+
+    async function saveNote(noteToSave) {
+        setAllNotes(prev => prev.map(n => n._id === noteToSave._id ? noteToSave : n))
+        filterByLabel()
+        try {
+            await noteService.save(noteToSave)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (!notesToDisplay) return <h1>loading...</h1>;
     return (
         <section className="note-index">
             <ActionSidebar onSetFilter={onSetFilter} label={filter.label} operator={'note'} />
@@ -143,9 +103,9 @@ export function NoteIndex() {
                     <section className="notes-main">
                         <div className="search">
                             <label htmlFor="search"><GIcon iconName={'Search'} /></label>
-                            <input type="text" name="text" id="search" onChange={handleChange} placeholder="search" />
+                            <input type="text" name="text" id="search" onChange={handleChange} value={filter.text} placeholder="search" />
                         </div>
-                        <NotesList notes={notesToDisplay} />
+                        <NotesList notes={notesToDisplay} onStar={onStar} onTrash={onTrash} />
                     </section> :
                     <NotFoundActions label={filter.label} operator={'note'} />
                 }

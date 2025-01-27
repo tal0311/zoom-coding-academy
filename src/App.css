@@ -85,16 +85,54 @@
         }
       }
 
-      .notes-list {
+      .modal {
+        @apply absolute flex flex-col bg-[white] shadow-[2px_2px_2px_2px_rgb(238,236,236,0.5)] p-[5px] rounded-[5px];
+        button:hover {
+          @apply bg-[color:var(--color-background-2)];
+        }
       }
-    }
-
-    .empty-notes {
-      /* @apply justify-center justify-items-center gap-2.5 bg-[color:var(--color-background-4)] p-10; */
     }
 
     .prime-btn {
       @apply bg-[color:var(--color-primary)] text-[color:var(--color-background)] px-4 py-1.5 rounded-lg;
+    }
+  }
+}
+
+.note-details {
+  header {
+    border-block-end: 1px solid var(--color-border-lighter);
+  }
+}
+
+.text-editor {
+  .quill {
+    @apply grid grid-rows-[max-content_1fr]  h-full max-h-[80vh];
+
+    .ql-toolbar.ql-snow {
+      @apply shadow-[0_4px_3px_rgb(238,236,236,0.5)] border-[none];
+      border: none;
+      box-shadow: 0 4px 3px rgb(238, 236, 236, 0.5);
+
+      .ql-formats {
+        @apply relative mr-5 after:content-[""] after:absolute after:-translate-x-2/4 after:-translate-y-2/4 after:h-3/5 after:w-px after:bg-[rgb(133,133,133,0.5)] after:-right-2.5 after:top-2/4;
+      }
+    }
+
+    .ql-container.ql-snow {
+      @apply overflow-y-scroll border-[none];
+      border: none;
+      padding-inline: 180px;
+      scrollbar-width: none;
+    }
+    .ql-container {
+      @apply text-base leading-[1.6];
+    }
+
+    .ql-editor {
+      /* scrollbar-width: none; */
+      /* scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1;*/
     }
   }
 }
