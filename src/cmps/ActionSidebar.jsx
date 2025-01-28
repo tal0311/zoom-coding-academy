@@ -7,7 +7,12 @@ const allFilters = [
         icon: 'About',
     },
     {
-        forCmp: ['note'],
+        forCmp: ['wb'],
+        title: 'All whiteboards',
+        icon: 'About',
+    },
+    {
+        forCmp: ['note', 'wb'],
         title: 'Recent',
         icon: 'About',
     },
@@ -17,17 +22,22 @@ const allFilters = [
         icon: 'About',
     },
     {
-        forCmp: ['note'],
+        forCmp: ['wb'],
+        title: 'My whiteboards',
+        icon: 'About',
+    },
+    {
+        forCmp: ['note', 'wb'],
         title: 'Shared with me',
         icon: 'About',
     },
     {
-        forCmp: ['note'],
+        forCmp: ['note', 'wb'],
         title: 'Starred',
         icon: 'About',
     },
     {
-        forCmp: ['note'],
+        forCmp: ['note', 'wb'],
         title: 'Trash',
         icon: 'About',
     },

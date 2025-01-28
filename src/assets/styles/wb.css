@@ -1,11 +1,13 @@
 .wb-index {
-    grid-column: 1/-1 !important;
+    /* grid-column: 1/-1 !important;
     display: grid;
     background-color: #fff;
     grid-template-columns: auto 1fr;
-    grid-template-rows: 61px 1fr;
+    grid-template-rows: 61px 1fr; */
 
-    .wb-sidebar {
+    @apply grid grid-cols-[220px_1fr] bg-[--color-background];
+
+    /* .wb-sidebar {
         grid-row: 1/-1;
         grid-column: 1;
         background-color: aqua;
@@ -13,8 +15,8 @@
 
         @media (width>720px) {
             width: 220px;
-        }
-    }
+        } */
+    /* } */
     .wb-header {
         grid-column: 2;
         /* background-color: blue; */

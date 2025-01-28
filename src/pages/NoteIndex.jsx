@@ -90,6 +90,10 @@ export function NoteIndex() {
         }
     }
 
+    function onNewNote() {
+        console.log('new note');
+    }
+
     if (!notesToDisplay) return <h1>loading...</h1>;
     return (
         <section className="note-index">
@@ -107,7 +111,7 @@ export function NoteIndex() {
                         </div>
                         <NotesList notes={notesToDisplay} onStar={onStar} onTrash={onTrash} />
                     </section> :
-                    <NotFoundActions label={filter.label} operator={'note'} />
+                    <NotFoundActions label={filter.label} operator={'note'} CBF={onNewNote} />
                 }
             </main>
         </section>
