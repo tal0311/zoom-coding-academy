@@ -16,7 +16,7 @@ export function AppHeader() {
             icon: 'About'
         },
         {
-            path: '/whiteboard',
+            path: '/wb/dashboard',
             name: 'Whiteboards',
             icon: 'Whiteboards'
         },

@@ -5,10 +5,18 @@ import About from './pages/About'
 import MeetingDetails from './pages/MeetingDetails'
 import NotFoundPage from './pages/NotFoundPage'
 import Whiteboard from './pages/Whiteboard'
-import { useLocation, matchPath } from 'react-router-dom'
+import { NavLink, useLocation, matchPath } from 'react-router-dom'
+
+import GIcon from './cmps/GIcon'
+
+
+
+
 
 import { Route, Routes } from 'react-router'
 import { AppHeader } from './cmps/AppHeader'
+import WbDetails from './pages/WbDetails'
+import WbIndex from './pages/WbIndex'
 
 function App() {
   // console.log('App Rules Test');
@@ -37,13 +45,9 @@ function App() {
             />
           </Route>
           <Route
-            path="/whiteboard"
-            element={
-              <RouteGuard>
-                <Whiteboard />
-              </RouteGuard>
-            }
-          ></Route>
+            path="/wb/dashboard/:folder?" element={<RouteGuard><WbIndex /></RouteGuard>}></Route>
+          <Route path="/wb/:wbId" element={<RouteGuard><WbDetails /></RouteGuard>} />
+          
           <Route
             path="/about"
             element={
@@ -61,7 +65,7 @@ function App() {
 function RouteGuard({ children }) {
   const location = useLocation()
   // console.log(location);
-  const allowedRoutes = ['/', '/meeting/:id', '/about', '/whiteboard']
+  const allowedRoutes = ['/', '/meeting/:id', '/about', '/wb/dashboard/:folder', 'wb/:wbId']
   const isAllowed = allowedRoutes.some(route =>
     matchPath(route, location.pathname)
   )
