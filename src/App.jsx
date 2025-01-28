@@ -6,7 +6,6 @@ import { NoteDetails } from './pages/NoteDetails'
 import About from './pages/About'
 import MeetingDetails from './pages/MeetingDetails'
 import NotFoundPage from './pages/NotFoundPage'
-import Whiteboard from './pages/WbIndex'
 import { NavLink, useLocation, matchPath } from 'react-router-dom'
 
 import GIcon from './cmps/GIcon'
@@ -49,8 +48,6 @@ function App() {
           <Route path="/note/:noteId" element={<RouteGuard><NoteDetails /></RouteGuard>} />
           <Route path="/note" element={<RouteGuard><NoteIndex /></RouteGuard>}>
           </Route>
-          <Route path="/whiteboard" element={<RouteGuard><Whiteboard /></RouteGuard>}></Route>
-          <Route path="/about" element={<RouteGuard><About /></RouteGuard>} />
           <Route
             path="/wb/dashboard/:folder?" element={<RouteGuard><WbIndex /></RouteGuard>}></Route>
           <Route path="/wb/:wbId" element={<RouteGuard><WbDetails /></RouteGuard>} />
