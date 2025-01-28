@@ -6,7 +6,7 @@ import { NoteDetails } from './pages/NoteDetails'
 import About from './pages/About'
 import MeetingDetails from './pages/MeetingDetails'
 import NotFoundPage from './pages/NotFoundPage'
-import Whiteboard from './pages/Whiteboard'
+// import Whiteboard from './pages/Whiteboard'
 import { NavLink, useLocation, matchPath } from 'react-router-dom'
 
 import GIcon from './cmps/GIcon'
