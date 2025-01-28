@@ -4,7 +4,7 @@ import { peerService } from '../services/peer.service'
 
 function MeetingDetails() {
   const [peer, setPeer] = useState(null)
-  const [connection, setConnection] = useState(null)
+  const [localConnection, setLocalConnection] = useState(null)
 
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
@@ -43,13 +43,10 @@ function MeetingDetails() {
     // setLocalStream()
     peerService.startCall(
       peer,
-      stream => {
-        localVideoRef.current.srcObject = stream
-      },
+      setLocalStream,
       stream => {
         remoteVideoRef.current.srcObject = stream
-      },
-      setConnection
+      }
     )
   }
 
@@ -57,23 +54,17 @@ function MeetingDetails() {
     peerService.joinCall(
       peer,
       id,
-      stream => {
-        localVideoRef.current.srcObject = stream
-      },
+      setLocalStream,
       stream => {
         remoteVideoRef.current.srcObject = stream
       },
-      setConnection,
       onEndMeeting
     )
   }
 
-  async function setLocalStream() {
-    const localStream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true,
-    })
+  async function setLocalStream(localStream) {
     localVideoRef.current.srcObject = localStream
+    setLocalConnection(localStream)
   }
 
   function endLocalStream() {
@@ -87,8 +78,9 @@ function MeetingDetails() {
 
   async function onEndMeeting() {
     endLocalStream()
-    peer?.disconnect()
-    connection?.close()
+    // peer?.disconnect()
+    peer?.destroy()
+    // localConnection?.close()
     // Need more testing
     // localVideoRef.current.srcObject = null
     navigate('/')
