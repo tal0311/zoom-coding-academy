@@ -65,8 +65,6 @@
   @apply grid grid-cols-[220px_1fr] bg-[--color-background];
 
   .notes-container {
-    @apply grid grid-rows-[max-content_1fr];
-
     .notes-header {
       @apply flex justify-between bg-[--color-background] px-6 py-4;
       border-block-end: 1px solid var(--color-border-lighter);
@@ -74,7 +72,6 @@
 
     .notes-main {
       background-color: var(--color-background-4);
-      padding: 24px;
 
       .search {
         @apply max-w-max flex items-center border border-[color:var(--color-border)] text-[color:var(--color-text-primary)] p-[5px] rounded-lg border-solid;

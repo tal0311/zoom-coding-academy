@@ -94,13 +94,13 @@ export function NoteIndex() {
     return (
         <section className="note-index">
             <ActionSidebar onSetFilter={onSetFilter} label={filter.label} operator={'note'} />
-            <main className="notes-container">
+            <main className="notes-container grid grid-rows-[max-content_1fr]">
                 <article className="notes-header">
                     <h1>{filter.label}</h1>
                     <button className="prime-btn">New</button>
                 </article>
                 {notesToDisplay.length ?
-                    <section className="notes-main">
+                    <section className="notes-main p-8">
                         <div className="search">
                             <label htmlFor="search"><GIcon iconName={'Search'} /></label>
                             <input type="text" name="text" id="search" onChange={handleChange} value={filter.text} placeholder="search" />
