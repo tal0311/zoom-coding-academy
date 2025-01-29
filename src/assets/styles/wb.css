@@ -1,0 +1,104 @@
+.wb-index {
+    /* grid-column: 1/-1 !important;
+    display: grid;
+    background-color: #fff;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 61px 1fr; */
+
+    @apply grid grid-cols-[220px_1fr] bg-[--color-background];
+
+    /* .wb-sidebar {
+        grid-row: 1/-1;
+        grid-column: 1;
+        background-color: aqua;
+        width: 64px;
+
+        @media (width>720px) {
+            width: 220px;
+        } */
+    /* } */
+    .wb-header {
+        grid-column: 2;
+        /* background-color: blue; */
+        height: 61px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.25em;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(82, 82, 128, 0.15);
+
+        button {
+            color: white;
+            background-color: #0e72ed;
+            height: 32px;
+            padding-inline: 1em;
+            display: flex;
+            align-items: center;
+            border-radius: 0.5em;
+            /* justify-content: space-between; */
+            svg {
+                width: 1em;
+                height: 1em;
+                margin-inline-end: 0.25em;
+            }
+            span {
+                font-size: 0.875em;
+            }
+        }
+    }
+
+    .wb-list {
+    }
+}
+.wb-details {
+    grid-column: 1/-1 !important;
+    .canvas-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        canvas {
+            position: absolute;
+            inset: 0;
+        }
+    }
+
+    .wb-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        position: fixed;
+        left: 16px;
+        width: 46px;
+        border-radius: 12px;
+        box-shadow:
+            0 6px 20px #19191a0f,
+            0 2px 12px #19191a0a;
+        top: 50%;
+    }
+    .wb-left-footer {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        height: 46px;
+        border-radius: 12px;
+        box-shadow:
+            0 6px 20px #19191a0f,
+            0 2px 12px #19191a0a;
+    }
+    .wb-right-footer {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        height: 46px;
+        border-radius: 12px;
+        box-shadow:
+            0 6px 20px #19191a0f,
+            0 2px 12px #19191a0a;
+    }
+}

@@ -3,24 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #2D8CFF; /* Zoom Blue */
-  --color-secondary: #F5F7FA; /* Light Gray Background */
-  --color-accent: #E91E63; /* Pink Accent */
-  --color-orange: #FF8800; /* Orange (e.g., for warnings) */
-  --color-background: #FFFFFF; /* White Background */
+  --color-primary: #2d8cff; /* Zoom Blue */
+  --color-primary-secondary: #ecf5ff; /* Zoom Lighter Blue */
+  --color-secondary: #f5f7fa; /* Light Gray Background */
+  --color-accent: #e91e63; /* Pink Accent */
+  --color-orange: #ff8800; /* Orange (e.g., for warnings) */
+  --color-background: #ffffff; /* White Background */
   --color-background-2: #e2e6e9;
   --color-background-3: #cbd0d4;
+  --color-background-4: #f8f8fa;
   --color-text-primary: #131619; /* Dark Text */
-  --color-text-secondary: #5F6368; /* Lighter Text */
+  --color-text-secondary: #5f6368; /* Lighter Text */
+  --color-border: #6e7680; /* Gray boarder */
+  --color-border-lighter: #e6e6e6; /* Lighter Gray boarder */
 }
 
 [data-theme="dark"] {
-  --color-primary: #145CCB; /* Darker Blue for Dark Mode */
-  --color-secondary: #1E1E1E; /* Dark Gray Background */
-  --color-accent: #FF4081; /* Pink Accent for Dark Mode */
-  --color-orange: #FF7700; /* Darker Orange for Dark Mode */
+  --color-primary: #145ccb; /* Darker Blue for Dark Mode */
+  --color-secondary: #1e1e1e; /* Dark Gray Background */
+  --color-accent: #ff4081; /* Pink Accent for Dark Mode */
+  --color-orange: #ff7700; /* Darker Orange for Dark Mode */
   --color-background: #121212; /* Very Dark Background */
-  --color-text-primary: #E1E1E1; /* Light Text */
-  --color-text-secondary: #A0A0A0; /* Lighter Text */
+  --color-text-primary: #e1e1e1; /* Light Text */
+  --color-text-secondary: #a0a0a0; /* Lighter Text */
 }
-
