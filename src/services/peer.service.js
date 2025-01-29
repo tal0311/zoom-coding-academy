@@ -9,10 +9,14 @@ export const peerService = {
 }
 
 function createPeer(hostMeetingId) {
-  var peer = new Peer(hostMeetingId)
+  var peer = new Peer(hostMeetingId, {
+    host: 'localhost',
+    port: 9000,
+    path: '/ca-zoom',
+  })
 
   peer.on('open', id => {
-    console.log('My peer ID is: ' + id)
+    // console.log('My peer ID is: ' + id)
   })
 
   peer.on('error', err => {
@@ -37,18 +41,17 @@ async function joinCall(
   remoteId,
   onLocalStream,
   onRemoteStream,
-  setConnection,
   onEndMeeting
 ) {
   try {
     const stream = await getUserMedia()
-    if (onLocalStream) onLocalStream(stream)
+    onLocalStream && onLocalStream(stream)
 
     const call = peer.call(remoteId, stream)
 
     call.on('stream', remoteStream => {
-      console.log('Received remote stream')
-      if (onRemoteStream) onRemoteStream(remoteStream)
+      // console.log('Received remote stream')
+      onRemoteStream && onRemoteStream(remoteStream)
     })
 
     call.on('close', () => {
@@ -60,7 +63,6 @@ async function joinCall(
       console.error('Call error:', error)
     })
 
-    setConnection && setConnection(call)
     return call
   } catch (error) {
     console.error('Failed to make a call:', error)
@@ -68,28 +70,27 @@ async function joinCall(
   }
 }
 
-async function startCall(peer, onLocalStream, onRemoteStream, setConnection) {
+async function startCall(peer, onRemoteStream) {
   peer.on('call', async call => {
     try {
       const stream = await getUserMedia()
-      if (onLocalStream) onLocalStream(stream)
 
       call.answer(stream)
 
       call.on('stream', remoteStream => {
-        console.log('Received remote stream')
-        if (onRemoteStream) onRemoteStream(remoteStream)
+        // console.log('Received remote stream')
+        onRemoteStream && onRemoteStream(remoteStream)
       })
 
       call.on('close', () => {
         console.log('Call closed')
+        onRemoteStream(null)
       })
 
       call.on('error', error => {
         console.error('Call error:', error)
       })
 
-      setConnection && setConnection(call)
       return call
     } catch (error) {
       console.error('Failed to answer call:', error)

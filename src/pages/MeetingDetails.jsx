@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { MeetingEndCallButton } from '../cmps/meeting-details/MeetingEndCallButton'
 import { peerService } from '../services/peer.service'
 
 function MeetingDetails() {
   const [peer, setPeer] = useState(null)
-  const [connection, setConnection] = useState(null)
+  const [localStream, setLocalStream] = useState(null)
+  const [remoteStream, setRemoteStream] = useState(null)
 
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
@@ -16,64 +18,54 @@ function MeetingDetails() {
 
   useEffect(() => {
     if (peer) {
-      if (isHost) handleHost()
-      else handleGuest()
-      return
+      isHost ? handleHost() : handleGuest()
+    } else {
+      const newPeer = peerService.createPeer(isHost && id)
+      setPeer(newPeer)
     }
 
-    const newPeer = peerService.createPeer(isHost && id)
-    setPeer(newPeer)
+    return () => {
+      if (!peer) return
+      onEndMeeting()
+    }
   }, [peer])
 
   useEffect(() => {
-    return () => {
-      onEndMeeting()
+    if (!peer) return
+
+    if (!!localStream) {
+      localVideoRef.current.srcObject = localStream
     }
-  }, [])
+    if (!!remoteStream) {
+      remoteVideoRef.current.srcObject = remoteStream
+    }
+  }, [localStream, remoteStream])
 
   function handleHost() {
-    //**
-    // wip - It is currently not possible to
-    // display a video from the host before
-    // a connection is established.
-    // The behavior of streaming media and working
-    // with the peerService is not yet fully understood.
-    //  */
+    console.log('Handling HOST')
 
-    // setLocalStream()
-    peerService.startCall(
-      peer,
-      stream => {
-        localVideoRef.current.srcObject = stream
-      },
-      stream => {
-        remoteVideoRef.current.srcObject = stream
-      },
-      setConnection
-    )
+    setHostStream()
+    peerService.startCall(peer, setRemoteStream)
   }
 
   function handleGuest() {
+    console.log('Handling GUEST')
+
     peerService.joinCall(
       peer,
       id,
-      stream => {
-        localVideoRef.current.srcObject = stream
-      },
-      stream => {
-        remoteVideoRef.current.srcObject = stream
-      },
-      setConnection,
+      setLocalStream,
+      setRemoteStream,
       onEndMeeting
     )
   }
 
-  async function setLocalStream() {
-    const localStream = await navigator.mediaDevices.getUserMedia({
+  async function setHostStream() {
+    const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     })
-    localVideoRef.current.srcObject = localStream
+    localVideoRef.current.srcObject = stream
   }
 
   function endLocalStream() {
@@ -85,12 +77,9 @@ function MeetingDetails() {
     }
   }
 
-  async function onEndMeeting() {
+  function onEndMeeting() {
     endLocalStream()
-    peer?.disconnect()
-    connection?.close()
-    // Need more testing
-    // localVideoRef.current.srcObject = null
+    peer?.destroy()
     navigate('/')
   }
 
@@ -99,7 +88,23 @@ function MeetingDetails() {
   return (
     <section className="meeting-details p-4 bg-gray-800 flex flex-col items-center space-y-6">
       <h1 className="text-3xl font-bold text-white">Meeting ID: {id}</h1>
-      <div className="video-container grid grid-cols-1 sm:grid-cols-2 w-full max-w-7xl rounded-lg overflow-hidden">
+      <div
+        className={`video-container w-full max-w-7xl rounded-lg overflow-hidden ${
+          remoteStream
+            ? 'grid grid-cols-1 sm:grid-cols-2'
+            : 'flex justify-center'
+        }`}
+      >
+        {(!!remoteStream || !isHost) && (
+          <div className="aspect-w-16 aspect-h-9 bg-black">
+            <video
+              ref={remoteVideoRef}
+              autoPlay
+              muted
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
         <div className="aspect-w-16 aspect-h-9 bg-black">
           <video
             ref={localVideoRef}
@@ -108,30 +113,11 @@ function MeetingDetails() {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="aspect-w-16 aspect-h-9 bg-black">
-          <video
-            ref={remoteVideoRef}
-            autoPlay
-            muted
-            className="w-full h-full object-cover"
-          />
-        </div>
       </div>
       {/* Add more participants if needed */}
-      <button
-        onClick={onEndMeeting}
-        className={`px-4 py-2 rounded-lg text-white font-medium 
-                  ${
-                    isHost
-                      ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-blue-600 hover:bg-blue-700'
-                  }
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 
-                  ${isHost ? 'focus:ring-red-500' : 'focus:ring-blue-500'}
-                  transition duration-300`}
-      >
+      <MeetingEndCallButton isHost={isHost} endCall={onEndMeeting}>
         {isHost ? 'End meeting' : 'Leave meeting'}
-      </button>
+      </MeetingEndCallButton>
     </section>
   )
 }
