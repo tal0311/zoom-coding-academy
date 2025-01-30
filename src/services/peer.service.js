@@ -1,3 +1,5 @@
+const { VITE_LOCAL } = import.meta.env
+
 import Peer from 'peerjs'
 
 export const peerService = {
@@ -9,11 +11,14 @@ export const peerService = {
 }
 
 function createPeer(hostMeetingId) {
-  var peer = new Peer(hostMeetingId, {
-    host: 'localhost',
-    port: 9000,
-    path: '/ca-zoom',
-  })
+  var peer = new Peer(
+    hostMeetingId,
+    VITE_LOCAL && {
+      host: 'localhost',
+      port: 9000,
+      path: '/ca-zoom',
+    }
+  )
 
   peer.on('open', id => {
     // console.log('My peer ID is: ' + id)
