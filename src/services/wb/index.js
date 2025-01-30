@@ -63,7 +63,7 @@ function getDefaultFilter() {
 
 
 const service = local
-// const service = VITE_LOCAL === 'true' ? local : remote
+// const service = VITE_LOCAL ? local : remote
 export const wbService = {
   getEmptyElement,
   getEmptyWb,

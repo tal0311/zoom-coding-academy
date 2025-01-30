@@ -20,7 +20,7 @@ function getEmptyMeeting() {
   }
 }
 
-const service = DEV || VITE_LOCAL ? local : remote
+const service = VITE_LOCAL ? local : remote
 export const meetingService = { ...service, getEmptyMeeting }
 
 // Easy access to this service from the dev tools console
