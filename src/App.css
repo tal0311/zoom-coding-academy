@@ -45,6 +45,27 @@
   }
 }
 
+.user-preview {
+  @apply relative justify-self-end w-[30px] h-[30px] cursor-pointer;
+  --icon-size: 8px;
+
+  &.meeting {
+    --icon-size: 10px;
+  }
+
+  .user-img {
+    @apply object-cover object-center w-full h-full rounded-lg;
+  }
+
+  .status-icon-bg {
+    @apply absolute w-[calc(var(--icon-size)_+_2px)] h-[calc(var(--icon-size)_+_2px)] bg-[white] rounded-[50%] -right-1 -top-1;
+  }
+
+  .status-icon {
+    @apply absolute top-[-3px] right-[-3px] w-[var(--icon-size)] h-[var(--icon-size)];
+  }
+}
+
 .action-sidebar {
   border-inline-end: 1px solid var(--color-border-lighter);
 
