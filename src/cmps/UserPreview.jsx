@@ -4,14 +4,16 @@ import GIcon from "./GIcon";
 import { useSelector } from "react-redux";
 
 export function UserPreview() {
-    const user = useSelector(store => store.userModule.user)
-    const [statusIcon, setStatusIcon] = useState(user.status)
+    const userStatus = useSelector(store => store.userModule.user.status)
+    const userImgUrl = useSelector(store => store.userModule.user.profile_picture)
+
+    const [statusIcon, setStatusIcon] = useState(userStatus)
     const location = useLocation()
 
     useEffect(() => {
         const isInMeeting = location.pathname.includes('meeting')
-        setStatusIcon(isInMeeting ? 'in-meeting' : user.status)
-    }, [location.pathname, user.status])
+        setStatusIcon(isInMeeting ? 'in-meeting' : userStatus)
+    }, [location.pathname, userStatus])
 
     var iconName = 'Offline'
     const className = statusIcon === 'in-meeting' ? 'meeting' : ''
@@ -25,7 +27,7 @@ export function UserPreview() {
 
     return (
         <div className={'user-preview ' + className}>
-            <img className="user-img" src={user.profile_picture} alt="User profile picture" />
+            <img className="user-img" src={userImgUrl} alt="User profile picture" />
             <div className="status-icon-bg"></div>
             <GIcon className="status-icon" iconName={iconName} />
         </div>
