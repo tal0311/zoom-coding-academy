@@ -35,7 +35,7 @@ async function update({ _id, score }) {
     user.score = score
     await storageService.put('user', user)
 
-	// When admin updates other user's details, do not update loggedInUser
+    // When admin updates other user's details, do not update loggedInUser
     const loggedInUser = getLoggedInUser()
     if (loggedInUser._id === user._id) saveLoggedInUser(user)
 
@@ -62,19 +62,25 @@ async function logout() {
 }
 
 function getLoggedInUser() {
-    return JSON.parse(sessionStorage.getItem(LOGGED_USER))
+    return {
+        name: 'Pukinshtein',
+        email: 'puki12@gmail.com',
+        profile_picture: 'https://res.cloudinary.com/dvpkhwyxp/image/upload/v1691173815/cld-sample.jpg',
+        status: 'online'
+    }
+    // return JSON.parse(sessionStorage.getItem(LOGGED_USER))
 }
 
 function saveLoggedInUser(user) {
-	user = { 
-        _id: user._id, 
-        fullname: user.fullname, 
-        imgUrl: user.imgUrl, 
-        score: user.score, 
-        isAdmin: user.isAdmin 
+    user = {
+        _id: user._id,
+        fullname: user.fullname,
+        imgUrl: user.imgUrl,
+        score: user.score,
+        isAdmin: user.isAdmin
     }
-	sessionStorage.setItem(LOGGED_USER, JSON.stringify(user))
-	return user
+    sessionStorage.setItem(LOGGED_USER, JSON.stringify(user))
+    return user
 }
 
 // To quickly create an admin user, uncomment the next line

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import GIcon from "./GIcon"
+import { UserPreview } from "./UserPreview"
 
 export function AppHeader() {
 
@@ -51,7 +52,7 @@ export function AppHeader() {
                         </li>
                     </ul>
                 </nav>
-                <span>user-preview</span>
+                <UserPreview />
             </div>
         </header>
     )
