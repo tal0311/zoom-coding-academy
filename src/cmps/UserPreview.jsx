@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router"
 import GIcon from "./GIcon";
+import { useSelector } from "react-redux";
 
 export function UserPreview() {
-    // Temp state since no store yet:
-    const [user, setUser] = useState({
-        name: 'Pukinshtein',
-        email: 'puki12@gmail.com',
-        profile_picture: 'https://res.cloudinary.com/dvpkhwyxp/image/upload/v1691173815/cld-sample.jpg',
-        status: 'online'
-    })
+    const user = useSelector(store => store.userModule.user)
     const [statusIcon, setStatusIcon] = useState(user.status)
     const location = useLocation()
 
