@@ -22,7 +22,7 @@ function getDefaultFilter() {
     }
 }
 
-const service = VITE_LOCAL ? local : remote
+const service = VITE_LOCAL === 'true' ? local : remote
 export const carService = { getEmptyCar, getDefaultFilter, ...service }
 
 // Easy access to this service from the dev tools console

@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev:remote": "npm run dev",
     "dev:remote:mac": "npm run dev",
-    "dev:local": "concurrently \"set VITE_LOCAL=true && vite\" \"npm run server\"",
+    "dev:local": "concurrently \"set VITE_LOCAL=true&& vite\" \"npm run server\"",
     "dev:local:mac": "concurrently \"VITE_LOCAL=true vite\" \"npm run server\"",
     "server": "node peerServer.js",
     "build": "vite build",
