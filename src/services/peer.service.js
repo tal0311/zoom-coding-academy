@@ -17,6 +17,7 @@ function createPeer(hostMeetingId) {
       host: 'localhost',
       port: 9000,
       path: '/ca-zoom',
+      secure: true,
     }
   )
 
