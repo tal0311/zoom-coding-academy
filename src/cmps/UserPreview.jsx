@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router"
-import GIcon from "./GIcon";
 import { useSelector } from "react-redux";
+import GIcon from "./GIcon";
 
 export function UserPreview() {
-    const userStatus = useSelector(store => store.userModule.user.status)
-    const userImgUrl = useSelector(store => store.userModule.user.profile_picture)
+    // const userStatus = useSelector(state => state.userModule.user.status)
+    // const userImgUrl = useSelector(state => state.userModule.user.profile_picture)
+
+    const userStatus = 'online'
+    const userImgUrl = 'https://res.cloudinary.com/dvpkhwyxp/image/upload/v1691173815/cld-sample.jpg'
 
     const [statusIcon, setStatusIcon] = useState(userStatus)
     const location = useLocation()
@@ -15,15 +18,18 @@ export function UserPreview() {
         setStatusIcon(isInMeeting ? 'in-meeting' : userStatus)
     }, [location.pathname, userStatus])
 
-    var iconName = 'Offline'
+    const iconMap = {
+        'online': 'Online',
+        'offline': 'Offline',
+        'in-meeting': 'InMeeting',
+        'away': 'Away',
+        'busy': 'Busy',
+        'do-not-disturb': 'DoNotDisturb',
+        'out-of-office': 'OutOfOffice'
+    }
+    
+    const iconName = iconMap[statusIcon]
     const className = statusIcon === 'in-meeting' ? 'meeting' : ''
-
-    if (statusIcon === 'online') iconName = 'Online'
-    else if (statusIcon === 'in-meeting') iconName = 'InMeeting'
-    else if (statusIcon === 'away') iconName = 'Away'
-    else if (statusIcon === 'busy') iconName = 'Busy'
-    else if (statusIcon === 'do-not-disturb') iconName = 'DoNotDisturb'
-    else if (statusIcon === 'out-of-office') iconName = 'OutOfOffice'
 
     return (
         <div className={'user-preview ' + className}>
