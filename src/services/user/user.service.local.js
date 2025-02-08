@@ -62,13 +62,7 @@ async function logout() {
 }
 
 function getLoggedInUser() {
-    return {
-        name: 'Pukinshtein',
-        email: 'puki12@gmail.com',
-        profile_picture: 'https://res.cloudinary.com/dvpkhwyxp/image/upload/v1691173815/cld-sample.jpg',
-        status: 'online'
-    }
-    // return JSON.parse(sessionStorage.getItem(LOGGED_USER))
+    return JSON.parse(sessionStorage.getItem(LOGGED_USER))
 }
 
 function saveLoggedInUser(user) {
